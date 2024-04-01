@@ -97,7 +97,7 @@ namespace Assignment_3_Data_Formats
 
             FileInfo fi = new FileInfo(filePath);
             excelPackage.SaveAs(fi);
-            Console.Write("save file SUCCESS!");
+            Console.Write("save file SUCCESS!\n");
 
         }
     }
