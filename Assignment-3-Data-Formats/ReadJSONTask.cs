@@ -97,7 +97,7 @@ namespace Assignment_3_Data_Formats
                 string authors = GetAuthorNames(book.author);
 
                 worksheet.Cells[row, 1].Value = book._category;
-                worksheet.Cells[row, 2].Value = book.title;
+                worksheet.Cells[row, 2].Value = book.title.__text;
                 worksheet.Cells[row, 3].Value = authors;
                 worksheet.Cells[row, 4].Value = book.year;
                 worksheet.Cells[row, 5].Value = book.price;
