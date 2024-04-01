@@ -13,7 +13,6 @@ public class User
     public string username { get; set; }
     public string email { get; set; }
     public string phone { get; set; }
-    public string website { get; set; }
     public Address address { get; set; }
 }
 
@@ -44,7 +43,6 @@ namespace Assignment_3_Data_Formats
                     string responseBody = await response.Content.ReadAsStringAsync();
                     //Console.Write(responseBody);
 
-
                     List<User> users = JsonConvert.DeserializeObject<List<User>>(responseBody);
 
                     callback(users);
@@ -56,13 +54,9 @@ namespace Assignment_3_Data_Formats
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine("Message :{0} ", e.Message);
             }
-
-
         }
 
         public void PrintUsers(List<User> users) {
-
-
 
             Console.WriteLine($"{"Name",-30} {"Email",-30} {"Phone",-30} {"Address",-30}\n");
             Console.WriteLine("============================================================================================================================================");
@@ -77,30 +71,20 @@ namespace Assignment_3_Data_Formats
 
         public void CreateExcelFile(List<User>  users, string filePath) {
 
-
-
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // prevent license error
             ExcelPackage excelPackage = new ExcelPackage();
-
-
-
-
-            // Create a worksheet
 
             ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Users");
 
-            // Set the titles for the columns
             worksheet.Cells[1, 1].Value = "ID";
             worksheet.Cells[1, 2].Value = "Name";
             worksheet.Cells[1, 3].Value = "Email";
             worksheet.Cells[1, 4].Value = "Phone";
             worksheet.Cells[1, 5].Value = "Address";
 
-            // Populate the worksheet with user data
             int row = 2;
             foreach (var user in users)
             {
-                //worksheet.Cells[row, 1].Value = user.ID;
                 worksheet.Cells[row, 1].Value = user.id;
                 worksheet.Cells[row, 2].Value = user.name;
                 worksheet.Cells[row, 3].Value = user.email;
@@ -109,12 +93,13 @@ namespace Assignment_3_Data_Formats
                 row++;
             }
 
-            // Save your file
+            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
             FileInfo fi = new FileInfo(filePath);
             excelPackage.SaveAs(fi);
             Console.Write("save file SUCCESS!");
 
+        }
     }
-}
 }
 
